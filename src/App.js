@@ -72,7 +72,7 @@ function Shoe(props) {
   )
 }
 
-useGLTF.preload("/untitled.gltf");
+useGLTF.preload("/untitled.glb");
 
 
 function Picker() {
