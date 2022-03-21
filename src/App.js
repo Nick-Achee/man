@@ -1,8 +1,18 @@
 import React, { Suspense, useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "react-three-fiber"
-import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
-import { HexColorPicker } from "react-colorful"
+import { ContactShadows, Environment, useGLTF, OrbitControls, Html, useProgress } from "drei"
 import { proxy, useProxy } from "valtio"
+import { Button, Grid } from '@mui/material';
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
+
+
+
+function Loader() {
+  const { active, progress, errors, item, loaded, total } = useProgress();
+  return <Html center>{progress} % loaded</Html>;
+}
+
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -31,10 +41,10 @@ function Shoe(props) {
   // Animate model
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
-    ref.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 30
-    ref.current.rotation.x = Math.cos(t / 4) / 15
-    ref.current.rotation.y = Math.sin(t / 4) / 30
-    ref.current.position.y = (1 + Math.sin(t / 1.5)) / 20
+    ref.current.rotation.z = 0.02 - (1 + Math.sin(t / 1.5)) / 50
+    ref.current.rotation.x = Math.sin(t / 4) / 15
+    ref.current.rotation.y = Math.cos(t / -69) / .019
+    ref.current.position.y = Math.sin(t / 1) / 20
   })
 
   // Cursor showing current color
@@ -47,20 +57,16 @@ function Shoe(props) {
 
   // Using the GLTFJSX output here to wire in app-state and hook up events
   return (
-    <group
-      ref={ref}
-      dispose={null}
-      onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}
-      onPointerOut={(e) => e.intersections.length === 0 && set(null)}
-      onPointerMissed={() => (state.current = null)}
-      onPointerDown={(e) => (e.stopPropagation(), (state.current = e.object.material.name))}>
-     <mesh
+   
+    <group ref={ref} {...props} dispose={null}>
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.Bearded_Man_2.geometry}
         material={nodes.Bearded_Man_2.material}
-        position={[-1.72, 3.02, -0.23]}
-        rotation={[-1.93, 0.04, -0.17]}
+        position={[-0.31, 1.524, 0.11]}
+        rotation={[-1.93, 0.03, -0.14]}
+        
       />
     </group>
   )
@@ -72,27 +78,35 @@ useGLTF.preload("/untitled.gltf");
 function Picker() {
   const snap = useProxy(state)
   return (
-    <div className="container">
-      
-      <h1>Welcome.</h1>
+    <div>
+      <h1>nick achee.com</h1>
     </div>
   )
 }
 
 export default function App() {
   return (
-    <>
-      <Canvas concurrent pixelRatio={[1, 1.5]} camera={{ position: [6, 6, .75] }}>
+    <><div className="#root"><Grid container spacing={-20}>
+      <Grid item xs={8}>
+    <Button href="https://nickachee.com">Real Estate</Button></Grid>
+    <Grid item xs={8}>
+    <Button href="https://nickachee.com">Digital Strategy</Button></Grid></Grid>
+
+    
+  </div>
+      <Canvas concurrent pixelRatio={[1, 1.5]} angle={0.31} camera={{ position: [-1 , 8, -8] }}>
+        
         <ambientLight intensity={0.3} />
-        <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
-        <Suspense fallback={null}>
+        <spotLight intensity={1.3} angle={0.21} penumbra={1} position={[10, 10, 20]} />
+        <Suspense fallback={<Loader />}>
           <Shoe />
           <Environment files="royal_esplanade_1k.hdr" />
-          <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
+          <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={1} height={20} blur={2} far={1} />
         </Suspense>
-        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
+        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={true} enablePan={true} />
       </Canvas>
       <Picker />
-    </>
+      </>
+    
   )
 }
