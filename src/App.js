@@ -90,7 +90,7 @@ export default function App() {
       <Grid item xs={8}>
     <Button href="https://susanchase.com/agents/nick-achee">Real Estate</Button></Grid>
     <Grid item xs={8}>
-    <Button href="https://nickachee.com">Digital Strategy</Button></Grid></Grid>
+    <Button href="https://nickachee.xyz">Digital Strategy</Button></Grid></Grid>
 
     
   </div>
