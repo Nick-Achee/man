@@ -88,7 +88,7 @@ export default function App() {
   return (
     <><div className="#root"><Grid container spacing={-20}>
       <Grid item xs={8}>
-    <Button href="https://nickachee.com">Real Estate</Button></Grid>
+    <Button href="https://susanchase.com/agents/nick-achee">Real Estate</Button></Grid>
     <Grid item xs={8}>
     <Button href="https://nickachee.com">Digital Strategy</Button></Grid></Grid>
 
