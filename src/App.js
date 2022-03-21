@@ -1,11 +1,10 @@
 import React, { Suspense, useRef, useState, useEffect } from "react"
-import { Canvas, useFrame, useThree } from "react-three-fiber"
+import { Canvas, useFrame} from "react-three-fiber"
 import { ContactShadows, Environment, useGLTF, OrbitControls, Html, useProgress } from "drei"
 import { proxy, useProxy } from "valtio"
 import { Button, Grid } from '@mui/material';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const deg2rad = degrees => degrees * (Math.PI / 180);
 
 
 
@@ -65,7 +64,6 @@ function Shoe(props) {
 
   // Using the GLTFJSX output here to wire in app-state and hook up events
   return (
-   
     <group ref={ref} {...props} dispose={null}>
       <mesh
         castShadow
@@ -79,8 +77,7 @@ function Shoe(props) {
     </group>
   )
 }
-
-useGLTF.preload("/untitled.glb");
+useGLTF.preload('/untitled.glb')
 
 
 function Picker() {
@@ -94,7 +91,7 @@ function Picker() {
 
 export default function App() {
   return (
-    <><div className="#root"><Grid container spacing={-20}>
+    <><div ><Grid container spacing={-20}>
       <Grid item xs={8}>
     <Button href="https://susanchase.com/agents/nick-achee">Real Estate</Button></Grid>
     <Grid item xs={8}>
